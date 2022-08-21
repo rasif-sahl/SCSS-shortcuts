@@ -5,7 +5,6 @@ $breakpoints: (
   "LGdesktop": 1920px
 ) !default;
 
-
 $media-expressions: (
   "screen": "screen",
   "print": "print",
@@ -20,24 +19,22 @@ $media-expressions: (
   )
 ) !default;
 
-
 $unit-intervals: (
   "px": 1,
   "em": 0.01,
   "rem": 0.1
 ) !default;
 
-
-@mixin media($conditions...) {
+@mixin breakPoints($conditions...) {
   @for $i from 1 through length($conditions) {
     $conditions: set-nth(
       $conditions,
       $i,
-      parse-expression(nth($conditions, $i))
+      scss-expression(nth($conditions, $i))
     );
   }
 
-  $branches: get-query-branches($conditions);
+  $branches: branches($conditions);
   $query: "";
 
   @each $branch in $branches {
@@ -53,12 +50,10 @@ $unit-intervals: (
   }
 }
 
-
-@function get-query-branches($expressions) {
+@function branches($expressions) {
   $result: "";
   $has-groups: false;
 
-  // Getting initial snapshot and looking for groups
   @each $expression in $expressions {
     @if (str-length($result) != 0) {
       $result: $result + " and ";
@@ -74,7 +69,6 @@ $unit-intervals: (
     }
   }
 
-  // If we have groups, we have to create all possible combinations
   @if $has-groups {
     @each $expression in $expressions {
       @if (type-of($expression) == "list") {
@@ -97,8 +91,7 @@ $unit-intervals: (
   @return $result;
 }
 
-
-@function parse-expression($expression) {
+@function scss-expression($expression) {
   $operator: "";
   $value: "";
   $element: "";
@@ -109,7 +102,6 @@ $unit-intervals: (
     @warn 'Expression with type `#{type-of($expression)}` detected, string expected.';
   }
 
-  // Separating the operator from the rest of the expression
   @if (str-slice($expression, 2, 2) == "=") {
     $operator: str-slice($expression, 1, 2);
     $value: str-slice($expression, 3);
@@ -118,7 +110,6 @@ $unit-intervals: (
     $value: str-slice($expression, 2);
   }
 
-  // Checking what type of expression we're dealing with
   @if map-has-key($breakpoints, $value) {
     $result: map-get($breakpoints, $value);
   } @else if map-has-key($media-expressions, $expression) {
@@ -156,7 +147,6 @@ $unit-intervals: (
   @return $element;
 }
 
-
 @function str-replace-first($search, $replace, $subject) {
   $search-start: str-index($subject, $search);
 
@@ -171,18 +161,15 @@ $unit-intervals: (
   @return $result;
 }
 
-
 @function to-number($string) {
-  // Matrices
+
   $strings: "0" "1" "2" "3" "4" "5" "6" "7" "8" "9";
   $numbers: 0 1 2 3 4 5 6 7 8 9;
 
-  // Result
   $result: 0;
   $divider: 0;
   $minus: false;
 
-  // Looping through all characters
   @for $i from 1 through str-length($string) {
     $character: str-slice($string, $i, $i);
     $index: index($strings, $character);
@@ -202,7 +189,6 @@ $unit-intervals: (
       @if $divider == 0 {
         $result: $result * 10;
       } @else {
-        // Move the decimal dot to the left
         $divider: $divider * 10;
         $number: $number / $divider;
       }

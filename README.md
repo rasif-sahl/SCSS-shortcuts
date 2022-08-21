@@ -15,3 +15,7 @@ But you can use the required piece of code in any project you are using. (But fi
 * run `npm start`
 
 ## Project Structure
+
+Folder | Contents | Documentation
+-------|---------|-------
+`src/BreakPoints` | This is to display the breakpoints for each frame (mobile/tablet etc) | [Breakpoints Docs](src/BreakPoints/BreakPoints.md)
