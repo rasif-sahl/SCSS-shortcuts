@@ -1,0 +1,21 @@
+@import '../breakPoints.scss';
+
+.color{
+    background-color: black;
+    height:2000px;
+    width:2000px;
+    text-align: center;
+
+    @include media("<=desktop") {
+        background-color: green;
+    }
+
+    @include media("<=tablet") {
+        background-color: pink;
+    }
+
+    @include media("<=phone") {
+        background-color: red;
+    }
+
+}
