@@ -1,12 +1,8 @@
 # SCSS Shortcuts
 
-This is an simple project that will help developers to find short-cuts when developing complex systems using SCSS. 
+This project is designed to assist developers in finding shortcuts when working on complex systems using SCSS. It employs the React framework to illustrate the functionality of each section. However, you can easily incorporate the necessary code into any project, provided that you install the required SCSS dependencies."
 
-And to demonstrate how each section is worked we have used the react framework. 
-
-But you can use the required piece of code in any project you are using. (But first according to the project you will have to install the SCSS dependencies) 
-
-## How to set-up this project in your local mashing
+## How to set up this project in your local mashing
 
 * First install npm globally
 * and then `Fork` the repo. 
